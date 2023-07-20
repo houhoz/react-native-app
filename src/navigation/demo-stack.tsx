@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, View, Text, StyleSheet} from 'react-native';
+import {Button, View, Text, StyleSheet, TextInput} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
@@ -37,7 +37,7 @@ function DetailsScreen({navigation, route}) {
   );
 }
 
-function HomeScreen({navigation}) {
+function HomeScreen({navigation, route}) {
   return (
     <View style={styles.home}>
       <Text>Home Screen</Text>
@@ -50,7 +50,38 @@ function HomeScreen({navigation}) {
           })
         }
       />
+      <Button
+        title="Create post"
+        onPress={() => navigation.navigate('CreatePost')}
+      />
+      <Text>Post: {route.params?.post}</Text>
     </View>
+  );
+}
+
+function CreatePostScreen({navigation, route}) {
+  const [postText, setPostText] = React.useState('');
+  return (
+    <>
+      <TextInput
+        multiline
+        placeholder="What's on your mind?"
+        style={styles.home}
+        value={postText}
+        onChangeText={setPostText}
+      />
+      <Button
+        title="Done"
+        onPress={() => {
+          // Pass and merge params back to home screen
+          navigation.navigate({
+            name: 'Home',
+            params: {post: postText},
+            merge: true,
+          });
+        }}
+      />
+    </>
   );
 }
 
@@ -63,6 +94,7 @@ export default function DemoStack() {
         component={HomeScreen}
       />
       <Stack.Screen name="Details" component={DetailsScreen} />
+      <Stack.Screen name="CreatePost" component={CreatePostScreen} />
     </Stack.Navigator>
   );
 }
