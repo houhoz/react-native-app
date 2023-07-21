@@ -1,8 +1,6 @@
 import React from 'react';
-import {Button, View, Text, StyleSheet, TextInput} from 'react-native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
-const Stack = createNativeStackNavigator();
+import {View, StyleSheet, TextInput} from 'react-native';
+import {Box, Text, Button} from 'native-base';
 
 const styles = StyleSheet.create({
   home: {
@@ -12,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function DetailsScreen({navigation, route}) {
+export function DetailsScreen({navigation, route}) {
   const {itemId, otherParam} = route.params;
   return (
     <View style={styles.home}>
@@ -37,7 +35,7 @@ function DetailsScreen({navigation, route}) {
   );
 }
 
-function HomeScreen({navigation, route}) {
+export function HomeScreen({navigation, route}) {
   return (
     <View style={styles.home}>
       <Text>Home Screen</Text>
@@ -55,11 +53,15 @@ function HomeScreen({navigation, route}) {
         onPress={() => navigation.navigate('CreatePost')}
       />
       <Text>Post: {route.params?.post}</Text>
+      <Box flex={1} bg="#fff" alignItems="center" justifyContent="center">
+        <Button onPress={() => console.log('hello world')}>Click Me</Button>
+        <Text>Open up App.js to start working on your app!</Text>
+      </Box>
     </View>
   );
 }
 
-function CreatePostScreen({navigation, route}) {
+export function CreatePostScreen({navigation, route}) {
   const [postText, setPostText] = React.useState('');
   return (
     <>
@@ -85,16 +87,16 @@ function CreatePostScreen({navigation, route}) {
   );
 }
 
-export default function DemoStack() {
-  return (
-    <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen
-        options={{title: 'Overview'}}
-        name="Home"
-        component={HomeScreen}
-      />
-      <Stack.Screen name="Details" component={DetailsScreen} />
-      <Stack.Screen name="CreatePost" component={CreatePostScreen} />
-    </Stack.Navigator>
-  );
-}
+// export function DemoStack() {
+//   return (
+//     <>
+//       <Stack.Screen
+//         options={{title: 'Overview'}}
+//         name="Home"
+//         component={HomeScreen}
+//       />
+//       <Stack.Screen name="Details" component={DetailsScreen} />
+//       <Stack.Screen name="CreatePost" component={CreatePostScreen} />
+//     </>
+//   );
+// }

@@ -1,12 +1,18 @@
 import * as React from 'react';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {NativeBaseProvider} from 'native-base';
 import {NavigationContainer} from '@react-navigation/native';
-import DemoStack from './navigation/demo-stack';
+import AppNavigator from './navigation';
 
 function App(): JSX.Element {
   return (
-    <NavigationContainer>
-      <DemoStack />
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NativeBaseProvider>
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </NativeBaseProvider>
+    </SafeAreaProvider>
   );
 }
 
