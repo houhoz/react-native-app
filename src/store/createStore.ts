@@ -7,7 +7,7 @@ import {persist} from 'zustand/middleware';
 
 import type {State} from './initialState';
 import {initialState, initUser, initToken} from './initialState';
-import {login} from '../services/login';
+import {login} from './../services/login';
 
 interface Action {
   resetUser: () => void;
